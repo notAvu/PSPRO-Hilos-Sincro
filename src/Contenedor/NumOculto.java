@@ -1,9 +1,27 @@
 package Contenedor;
 
+import java.util.Random;
+
 public class NumOculto {
-    static boolean isGuessed;
-    static void guess(int numGuess)
+    boolean isGuessed;
+    int numOculto;
+
+    public NumOculto() {
+        Random random= new Random();
+        this.numOculto = random.nextInt(1,100);
+    }
+
+    public synchronized int guess(int numGuess)
     {
-        isGuessed= numGuess==0;
+        int result=0;
+        if(numGuess==numOculto)
+        {
+            result=1;
+        }
+        else if(!isGuessed)
+        {
+            result=-1;
+        }
+        return result;
     }
 }
