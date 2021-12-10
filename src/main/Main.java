@@ -1,22 +1,26 @@
 package main;
 
+import Contenedor.NumOculto;
 import clasesHilos.Player;
-
 import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-        LinkedList<Thread> threadList=generateVectorThreadList();
-        for (Thread t:threadList) {
-            t.start();
+        while (NumOculto.getIdPartida()<10){
+            LinkedList<Thread> threadList=generateVectorThreadList();
+            for (Thread t:threadList) {
+                t.start();
+
+            }
         }
     }
 
     private static LinkedList<Thread> generateVectorThreadList() {
-       LinkedList<Thread> d=new LinkedList<>();
+        LinkedList<Thread> threads = new LinkedList<>();
+        NumOculto manager= new NumOculto();
         for (int i = 0; i < 10; i++) {
-            d.add(new Thread(new Player()));
+            threads.add(new Thread(new Player(manager)));
         }
-        return d;
+        return threads;
     }
 }

@@ -8,8 +8,8 @@ public class Player implements Runnable{
     int numGuess;
     NumOculto manager;
 
-    public Player() {
-        manager= new NumOculto();
+    public Player(NumOculto manager) {
+        this.manager= manager;
         setNewGuess();
     }
 
@@ -20,9 +20,12 @@ public class Player implements Runnable{
 
     @Override
     public void run() {
-        if(manager.guess(numGuess)==1)
-        {
-            System.out.println("El numero era"+numGuess);
+        while(!Thread.currentThread().isInterrupted()&&(!manager.isGuessed)) {
+
+            if(manager.guess(numGuess)==1) {
+                System.out.println("El numero era " + numGuess+"\n id partida: " + NumOculto.getIdPartida());
+            }
+            else setNewGuess();
         }
     }
 }
